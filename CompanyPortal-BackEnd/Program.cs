@@ -1,10 +1,10 @@
+using CompanyPortalBackEnd.Extensions;
 using Data.DbContext;
 using Data.Entities;
+using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.CodeAnalysis;
-using Microsoft.EntityFrameworkCore;
-
-namespace CompanyPortal_BackEnd
+using Application.Extensions;
+namespace CompanyPortalBackEnd
 {
 
     public class Program
@@ -15,8 +15,10 @@ namespace CompanyPortal_BackEnd
 
             // Add services to the container.
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.AddPresentation();
+            builder.Services.AddApplication();
+            builder.Services.AddInfrastructure(builder.Configuration);
+
 
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -42,6 +44,7 @@ namespace CompanyPortal_BackEnd
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 
