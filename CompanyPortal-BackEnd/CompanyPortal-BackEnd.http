@@ -1,0 +1,6 @@
+@CompanyPortal_BackEnd_HostAddress = http://localhost:5153
+
+GET {{CompanyPortal_BackEnd_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
