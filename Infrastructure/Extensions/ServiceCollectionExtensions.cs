@@ -1,4 +1,6 @@
-﻿using Data.DbContext;
+﻿using Application.Services.IService;
+using Data.DbContext;
+using Domain.IRepositories;
 using Domain.Repositories;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,10 @@ namespace Infrastructure.Extensions
             services.AddScoped<IFileService, FileService>();
 
             services.AddScoped<IAccountRepository, AccountRepository>();
+
+            services.AddScoped<IEmailService, EmailService>();
+
+            services.AddScoped<IOtpRepository, OtpRepository>();
 
         }
     }
