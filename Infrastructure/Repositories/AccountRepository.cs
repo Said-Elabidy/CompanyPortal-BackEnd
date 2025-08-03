@@ -27,10 +27,12 @@ public class AccountRepository(ApplicationDbContext context) : IAccountRepositor
         return true;
     }
 
-    public async Task<ApplicationUser?> GetUser(string Id)
+    public async Task<ApplicationUser?> GetUserAsync(string Id)
     {
          return await _context.ApplicationUsers.FindAsync(Id)  ;
     }
+
+
 
     public async Task<bool> SaveChangesAsync()
     {

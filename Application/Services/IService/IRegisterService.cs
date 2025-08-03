@@ -2,7 +2,9 @@
 
 namespace Application.Services.IService;
 
-public interface ICompanyService
+public interface IRegisterService
 {
     Task<bool> RegisterCompanyAsync(CreateCompanyDto dto);
+
+    Task<bool> CreatePassword(CreatePasswordDto createPasswordDto);
 }

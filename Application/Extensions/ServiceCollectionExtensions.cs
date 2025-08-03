@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<ICompanyService, CompanyService>();
+        services.AddScoped<IRegisterService, RegisterService>();
         services.AddScoped<IOtpService, OtpService>();
     }
 }

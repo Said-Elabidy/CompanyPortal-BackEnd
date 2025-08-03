@@ -9,11 +9,11 @@ namespace CompanyPortal_BackEnd.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly ICompanyService _companyService;
+        private readonly IRegisterService _registerService;
 
-        public CompanyController(ICompanyService companyService)
+        public CompanyController(IRegisterService RegisterService)
         {
-            _companyService = companyService;
+            _registerService = RegisterService;
         }
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace CompanyPortal_BackEnd.Controllers
 
             try
             {
-                await _companyService.RegisterCompanyAsync(createCompanyDto);
+                await _registerService.RegisterCompanyAsync(createCompanyDto);
                 return Ok();
             }
             catch (Exception ex)
@@ -35,6 +35,29 @@ namespace CompanyPortal_BackEnd.Controllers
             }
         }
 
+        [HttpPost("set-password")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SetPassword([FromBody] CreatePasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var isCreated = await _registerService.CreatePassword(dto);
+
+                if (isCreated)
+                    return Ok(new { message = "Password created successfully." });
+
+                return BadRequest("Password creation failed. Please check your data.");
+            }
+            catch (Exception ex)
+            {
+                // ممكن تحسّنها برسالة مخصصة أو لوجينج
+                return BadRequest($"An error occurred: {ex.Message}");
+            }
+        }
 
     }
 }

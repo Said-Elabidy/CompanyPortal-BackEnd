@@ -9,6 +9,6 @@ public interface IAccountRepository
       Task<bool> DeleteAccount(string Id);
       Task<bool> SaveChangesAsync();
 
-      Task<ApplicationUser?> GetUser(string Id);
+      Task<ApplicationUser?> GetUserAsync(string Id);
 
 }

@@ -1,5 +1,4 @@
-﻿
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class OtpCode
 {
@@ -8,4 +7,5 @@ public class OtpCode
     public string Code { get; set; } = null!;
     public DateTime ExpiryTime { get; set; }
     public bool IsUsed { get; set; } = false;
+
 }

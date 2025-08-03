@@ -16,9 +16,7 @@ public class Program
         builder.Services.AddApplication();
         builder.Services.AddInfrastructure(builder.Configuration);
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+         
 
         builder.Services.AddControllers();
 
@@ -50,6 +48,9 @@ public class Program
          
         app.UseCors("AllowAll");
 
+        app.UseAuthentication();  
+
+        
         app.UseAuthorization();
 
         app.UseStaticFiles();
