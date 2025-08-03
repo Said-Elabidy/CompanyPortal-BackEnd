@@ -46,22 +46,6 @@ public class RegisterService : IRegisterService
     }
 
 
-    //public async Task<bool> CreatePassword(CreatePasswordDto createPasswordDto)
-    //{
-    //    var user = await _userManager.FindByIdAsync(createPasswordDto.UserId);
-    //    if (user == null) return false;
-
-    //    var result = await _userManager.AddPasswordAsync(user, createPasswordDto.Password);
-
-    //    if (result.Succeeded)
-    //    {
-    //        user.IsVerified = true;
-    //        await _userManager.UpdateAsync(user);
-    //        return true;
-    //    }
-
-    //    return false;
-    //}
     public async Task<bool> CreatePassword(CreatePasswordDto createPasswordDto)
     {
         var user = await _userManager.FindByIdAsync(createPasswordDto.UserId);
@@ -76,12 +60,7 @@ public class RegisterService : IRegisterService
             return true;
         }
 
-        // اطبع الأخطاء في اللوج أو الكونسول
-        foreach (var error in result.Errors)
-        {
-            Console.WriteLine(error.Description);
-        }
-
         return false;
     }
+
 }
