@@ -37,7 +37,7 @@ public class RegisterService : IRegisterService
             PhoneNumber = createCompanyDto.PhoneNumber,
             WebsiteURL = createCompanyDto.WebsiteURL,
             LogoPath = logoPath,
-            UserName = createCompanyDto.Email.Split('@')[0]
+            UserName = createCompanyDto.EnglishName
         };
 
         await _accountRepository.AddAccountAsync(company);
