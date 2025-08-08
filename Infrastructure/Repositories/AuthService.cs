@@ -43,10 +43,12 @@ namespace Infrastructure.Services;
         var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
 
         var claims = new List<Claim>
-    {
-        new Claim(ClaimTypes.NameIdentifier, user.Id),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-    };
+{
+    new Claim(ClaimTypes.NameIdentifier, user.Id),
+    new Claim("CompanyName", user.EnglishCompanyName ?? ""),
+    new Claim("LogoPath", user.LogoPath ?? ""),
+    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+};
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {

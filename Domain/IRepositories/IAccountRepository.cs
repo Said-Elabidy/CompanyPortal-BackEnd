@@ -1,4 +1,5 @@
 ﻿using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Repositories;
 
@@ -9,6 +10,7 @@ public interface IAccountRepository
       Task<bool> DeleteAccount(string Id);
       Task<bool> SaveChangesAsync();
 
-      Task<ApplicationUser?> GetUserAsync(string Id);
+    Task<bool> EmailExistsAsync(string email);
+    Task<ApplicationUser?> GetUserAsync(string Id);
 
 }

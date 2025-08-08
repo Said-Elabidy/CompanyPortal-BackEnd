@@ -32,10 +32,15 @@ public class AccountRepository(ApplicationDbContext context) : IAccountRepositor
          return await _context.ApplicationUsers.FindAsync(Id)  ;
     }
 
-
+    public async Task<bool> EmailExistsAsync(string email)
+    {
+        return await _context.Users.AnyAsync(u => u.Email == email && u.IsVerified==true);
+    }
 
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
     }
+
+
 }

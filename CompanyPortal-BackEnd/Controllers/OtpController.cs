@@ -20,14 +20,17 @@ namespace CompanyPortal_BackEnd.Controllers
         public async Task<IActionResult> SendOtp([FromBody] SendOtpDto dto)
         {
             await _otpService.SendOtpAsync(dto.Email);
-            return Ok("OTP Sent.");
+            return Ok(new { message = "OTP Verified." });
         }
 
         [HttpPost("verify")]
         public async Task<IActionResult> VerifyOtp([FromBody] VerifyOtpDto dto)
         {
             var result = await _otpService.VerifyOtpAsync(dto.Email, dto.Code);
-            return result ? Ok("OTP Verified.") : BadRequest("Invalid or expired OTP.");
+            if (result)
+                return Ok(new { message = "OTP Verified." });
+
+            return BadRequest(new { message = "Invalid or expired OTP." });
         }
     }
 }

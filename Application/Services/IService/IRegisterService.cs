@@ -4,7 +4,7 @@ namespace Application.Services.IService;
 
 public interface IRegisterService
 {
-    Task<bool> RegisterCompanyAsync(CreateCompanyDto dto);
+    Task<string> RegisterCompanyAsync(CreateCompanyDto createCompanyDto);
 
     Task<bool> CreatePassword(CreatePasswordDto createPasswordDto);
 }

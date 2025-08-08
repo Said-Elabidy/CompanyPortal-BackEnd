@@ -3,6 +3,7 @@ using Application.Services.IService;
 using Data.Entities;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
 
 namespace Application.Services.Service;
 
@@ -19,8 +20,11 @@ public class RegisterService : IRegisterService
         _userManager = userManager;
     }
 
-    public async Task<bool> RegisterCompanyAsync(CreateCompanyDto createCompanyDto)
+    public async Task<string> RegisterCompanyAsync(CreateCompanyDto createCompanyDto)
     {
+        if (await _accountRepository.EmailExistsAsync(createCompanyDto.Email))
+            throw new Exception("Email already exists");
+
         string logoPath = "";
 
         if (createCompanyDto.Logo != null && createCompanyDto.Logo.Length > 0)
@@ -37,12 +41,13 @@ public class RegisterService : IRegisterService
             PhoneNumber = createCompanyDto.PhoneNumber,
             WebsiteURL = createCompanyDto.WebsiteURL,
             LogoPath = logoPath,
-            UserName = createCompanyDto.EnglishName
+            UserName = Regex.Replace(createCompanyDto.EnglishName, @"\s+", "")
         };
 
         await _accountRepository.AddAccountAsync(company);
+        await _accountRepository.SaveChangesAsync();
 
-        return await _accountRepository.SaveChangesAsync();
+        return company.Id;  
     }
 
 
@@ -58,6 +63,14 @@ public class RegisterService : IRegisterService
             user.IsVerified = true;
             await _userManager.UpdateAsync(user);
             return true;
+        }
+        else
+        {
+            
+            foreach (var error in result.Errors)
+            {
+                Console.WriteLine($"Error: {error.Code} - {error.Description}");
+            }
         }
 
         return false;

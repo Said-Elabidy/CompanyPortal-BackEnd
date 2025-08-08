@@ -4,6 +4,7 @@ using Data.Entities;
 using Application.Extensions;
 using Infrastructure.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.FileProviders;
 
 public class Program
 {
@@ -45,7 +46,6 @@ public class Program
 
         app.UseHttpsRedirection();
 
-         
         app.UseCors("AllowAll");
 
         app.UseAuthentication();  
